@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ruby - opal - iodide</title>
+<link rel="stylesheet" type="text/css" href="https://iodide.io/stable/iodide.stable.css">
+</head>
+<body>
+<script id="jsmd" type="text/jsmd">
+%% meta
+{
+  "title": "ruby - opal",
+  "languages": {
+    "js": {
+      "pluginType": "language",
+      "languageId": "js",
+      "displayName": "Javascript",
+      "codeMirrorMode": "javascript",
+      "module": "window",
+      "evaluator": "eval",
+      "keybinding": "j",
+      "url": ""
+    },
+    "ruby": {
+      "languageId": "ruby",
+      "displayName": "ruby",
+      "codeMirrorMode": "ruby",
+      "keybinding": "r",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/opal/0.3.43/opal.js",
+      "module": "Opal",
+      "evaluator": "eval",
+      "pluginType": "language"
+    }
+  },
+  "lastExport": "2018-10-15T10:29:27.308Z"
+}
+%% plugin
+{
+  "languageId": "ruby",
+  "displayName": "ruby",
+  "codeMirrorMode": "ruby",
+  "keybinding": "r",
+  "url": "https://cdnjs.cloudflare.com/ajax/libs/opal/0.3.43/opal.js",
+  "module": "Opal",
+  "evaluator": "eval",
+  "pluginType": "language"
+}
+%% js
+var script = document.createElement("script")
+script.src = 'https://cdnjs.cloudflare.com/ajax/libs/opal-parser/0.3.43/opal-parser.js'
+document.body.appendChild(script)
+%% code {"language":"ruby"}
+[1,2,3,4].map{|d| d*2}
+%% code {"language":"ruby"}
+(1..10).map{|i| i*2}
+%% code {"language":"ruby"}
+(1..100).map{|n|
+  if (n%15).zero?
+    'FizzBuzz'
+  elsif (n%3).zero?
+    'Fizz'
+  elsif (n%5).zero?
+    'Buzz'
+  else
+    n.to_s
+  end
+}
+</script>
+<div id='page'></div>
+<script src='https://iodide.io/stable/iodide.stable.js'></script>
+</body>
+</html>
