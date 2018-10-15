@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>assemblyscript - iodide</title>
+<link rel="stylesheet" type="text/css" href="https://iodide.io/stable/iodide.stable.css">
+</head>
+<body>
+<script id="jsmd" type="text/jsmd">
+%% meta
+{
+  "title": "assemblyscript",
+  "languages": {
+    "js": {
+      "pluginType": "language",
+      "languageId": "js",
+      "displayName": "Javascript",
+      "codeMirrorMode": "javascript",
+      "module": "window",
+      "evaluator": "eval",
+      "keybinding": "j",
+      "url": ""
+    },
+    "assemblyscript": {
+      "languageId": "assemblyscript",
+      "displayName": "assemblyscript",
+      "codeMirrorMode": "assemblyscript",
+      "keybinding": "a",
+      "url": "https://cdn.jsdelivr.net/npm/assemblyscript@0.3.0/dist/assemblyscript.js",
+      "module": "asmScript",
+      "evaluator": "eval",
+      "pluginType": "language"
+    }
+  },
+  "lastExport": "2018-10-14T22:45:37.461Z"
+}
+%% resource
+https://cdn.jsdelivr.net/npm/binaryen@51.0.0/index.min.js
+https://cdn.jsdelivr.net/npm/assemblyscript@0.3.0/dist/assemblyscript.js
+%% js
+window.exports = ''
+window.asmScript = {}
+asmScript.eval = function(assemblyscriptString){
+  const module = assemblyscript.Compiler.compileString(
+    assemblyscriptString, 
+    {
+    	target: assemblyscript.CompilerTarget.WASM32,
+    	silent: true
+  	}
+  );
+  const wasmFile = module.emitBinary()
+  WebAssembly.instantiate(wasmFile)
+     .then(res => {
+        window.exports = res.instance.exports
+     })
+}
+%% plugin
+{
+  "languageId": "assemblyscript",
+  "displayName": "assemblyscript",
+  "codeMirrorMode": "assemblyscript",
+  "keybinding": "a",
+  "url": "https://cdn.jsdelivr.net/npm/assemblyscript@0.3.0/dist/assemblyscript.js",
+  "module": "asmScript",
+  "evaluator": "eval",
+  "pluginType": "language"
+}
+%% code {"language":"assemblyscript"}
+export function add(a: i32, b: i32): i32 {
+  return a + b;
+}
+%% js
+exports.add(4,5)
+</script>
+<div id='page'></div>
+<script src='https://iodide.io/stable/iodide.stable.js'></script>
+</body>
+</html>
